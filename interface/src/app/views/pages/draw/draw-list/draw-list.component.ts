@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { iDrawItem } from 'src/app/interfaces/draw-item.interface';
+import { iDrawItem } from 'src/app/interfaces/lists/draw-item.interface';
 
 @Component({
   selector: 'app-draw-list',
