@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { iDrawItem } from 'src/app/interfaces/lists/draw-item.interface';
 import { Artist } from 'src/app/models/artist.model';
@@ -9,97 +9,69 @@ import { DrawService } from 'src/app/services/http/draw.service';
 @Component({
   selector: 'app-draw-list',
   templateUrl: './draw-list.component.html',
-  styleUrls: ['./draw-list.component.scss']
+  styleUrls: ['./draw-list.component.scss'],
 })
 export class DrawListComponent implements OnInit {
+  draws: iDrawItem[] = [];
 
-  draws: iDrawItem[] = []
-
-  artists: Artist[] = []
+  artists: Artist[] = [];
 
   constructor(
     private drawService: DrawService,
     private artistService: ArtistService,
+    private cdr: ChangeDetectorRef,
     private router: Router
-  ) { }
+  ) {}
 
   async ngOnInit(): Promise<void> {
-
     try {
-      
-      // await this.setDrawList()
-
+      await this.setDrawList();
     } catch (error) {
-      
-      this.router.navigate(['home'])
+      this.router.navigate(['home']);
     }
   }
 
   async setDrawList(): Promise<void> {
-
     try {
+      let draws: Draw[] = await this.drawService.getDraws();
+      let artists: Artist[] = await this.artistService.getArtists();
 
-      let draws: Draw[] = await this.drawService.getDraws()
-      let artists: Artist[] = await this.artistService.getArtists()
+      let artist: Artist | undefined = new Artist();
 
-      let artist: Artist | undefined = new Artist()
-
-      draws.forEach(draw => {
-
-        artist = artists.find(artist => {
-
-          artist.id == draw.artistId
-        })
+      draws.forEach((draw) => {
+        artist = artists.find((artist) => artist.id === draw.artistId);
 
         if (artist) {
-
           this.draws.push({
-
             id: draw.id,
             img: draw.img,
             title: draw.title,
-            artist: artist.name
-          })
+            artist: artist.name,
+          });
         }
 
-        artist = new Artist()
-      })
+        artist = new Artist();
+      });
 
-    } catch (error) {
-
-    }
+      this.cdr.markForCheck();
+    } catch (error) {}
   }
 
   async getArtists(): Promise<void> {
-
     try {
-      
-      this.artists = await this.artistService.getArtists()
-
-    } catch (error) {
-      
-    }
+      this.artists = await this.artistService.getArtists();
+    } catch (error) {}
   }
 
   async editDraw(draw: Draw): Promise<void> {
-
     try {
-      
-      await this.drawService.editDraw(draw)
-
-    } catch (error) {
-      
-    }
+      await this.drawService.editDraw(draw);
+    } catch (error) {}
   }
 
   async deleteDraw(drawId: number): Promise<void> {
-
     try {
-      
-      await this.drawService.deleteDraw(drawId)
-
-    } catch (error) {
-      
-    }
+      await this.drawService.deleteDraw(drawId);
+    } catch (error) {}
   }
 }
