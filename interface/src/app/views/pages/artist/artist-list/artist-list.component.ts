@@ -18,6 +18,8 @@ export class ArtistListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.getArtists()
   }
 
   async getArtists(): Promise<void> {

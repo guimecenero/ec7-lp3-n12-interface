@@ -1,3 +1,7 @@
+<div class="d-flex">
+  <button class="btn btn-primary mb-4 ml-auto" routerLink="/draw/register">Cadastrar</button>
+</div>
+
 <table class="table table-hover">
   <thead>
     <tr>
@@ -8,14 +12,41 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let draw of draws; index as i">
+    <tr *ngFor="let draw of draws">
       <td><img class="Draw-Img" [src]="draw.img" alt="" /></td>
       <td>{{ draw.title }}</td>
       <td>{{ draw.artist }}</td>
       <td>
         <button class="btn btn-primary mr-3">Editar</button>
-        <button class="btn btn-outline-danger">Excluir</button>
+        <button class="btn btn-outline-danger" (click)="deleteDraw(draw.id)">Excluir</button>
       </td>
     </tr>
   </tbody>
 </table>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Editar Desenho</h4>
+    <button type="button" class="close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+
+      <div class="form-group">
+        <label>Título</label>
+        <input type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea type="text" class="form-control"></textarea>
+      </div>
+
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Editar</button>
+  </div>
+</ng-template>
