@@ -1,5 +1,7 @@
 <div class="d-flex">
-  <button class="btn btn-primary mb-4 ml-auto" routerLink="/artist/register">Cadastrar</button>
+  <button class="btn btn-primary mb-4 ml-auto" routerLink="/artist/register">
+    Cadastrar
+  </button>
 </div>
 
 <table class="table table-hover">
@@ -15,8 +17,18 @@
       <td>{{ artist.name }}</td>
       <td>{{ artist.uf }}</td>
       <td>
-        <button class="btn btn-primary mr-3">Editar</button>
-        <button class="btn btn-outline-danger" (click)="deleteArtist(artist.id)">Excluir</button>
+        <button
+          class="btn btn-primary mr-3"
+          (click)="openModal(artist, content)"
+        >
+          Editar
+        </button>
+        <button
+          class="btn btn-outline-danger"
+          (click)="deleteArtist(artist.id)"
+        >
+          Excluir
+        </button>
       </td>
     </tr>
   </tbody>
@@ -31,15 +43,19 @@
   </div>
   <div class="modal-body">
     <form>
-
       <div class="form-group">
         <label>Nome</label>
-        <input type="text" class="form-control">
+        <input
+          name="name"
+          [(ngModel)]="artist.name"
+          type="text"
+          class="form-control"
+        />
       </div>
 
       <div class="form-group">
         <label>UF</label>
-        <select class="form-control">
+        <select name="uf" [(ngModel)]="artist.uf" class="form-control">
           <option>Acre</option>
           <option>Alagoas</option>
           <option>Amapá</option>
@@ -66,13 +82,14 @@
           <option>Santa Catarina</option>
           <option>São Paulo</option>
           <option>Sergipe</option>
-          <option>Tocantins </option>
+          <option>Tocantins</option>
         </select>
       </div>
-
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">Editar</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close()">
+      Editar
+    </button>
   </div>
 </ng-template>

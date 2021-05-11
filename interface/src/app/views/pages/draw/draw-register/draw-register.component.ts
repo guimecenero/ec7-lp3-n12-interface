@@ -49,7 +49,10 @@ export class DrawRegisterComponent implements OnInit {
   async registerDraw(): Promise<void> {
     try {
       await this.drawService.registerDraw(this.draw);
-    } catch (error) {}
+    } catch (error) {
+    } finally {
+      this.router.navigate(['draw']);
+    }
   }
 
   async onFileSelected() {

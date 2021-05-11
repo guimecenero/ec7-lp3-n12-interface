@@ -5,21 +5,23 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DrawListComponent } from './views/pages/draw/draw-list/draw-list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DrawRegisterComponent } from './views/pages/draw/draw-register/draw-register.component'
+import { DrawRegisterComponent } from './views/pages/draw/draw-register/draw-register.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ArtistRegisterComponent } from './views/pages/artist/artist-register/artist-register.component';
 import { DashboardComponent } from './views/pages/dashboard/dashboard.component';
 import { HomeComponent } from './views/pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ArtistListComponent } from './views/pages/artist/artist-list/artist-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DrawListComponent,
+    ArtistListComponent,
     DrawRegisterComponent,
     ArtistRegisterComponent,
     DashboardComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,9 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     NgbModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

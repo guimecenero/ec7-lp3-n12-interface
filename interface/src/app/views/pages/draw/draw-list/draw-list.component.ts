@@ -1,5 +1,11 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { iDrawItem } from 'src/app/interfaces/lists/draw-item.interface';
 import { Artist } from 'src/app/models/artist.model';
 import { Draw } from 'src/app/models/draw.model';
@@ -15,10 +21,12 @@ export class DrawListComponent implements OnInit {
   draws: iDrawItem[] = [];
 
   artists: Artist[] = [];
+  draw: Draw;
 
   constructor(
     private drawService: DrawService,
     private artistService: ArtistService,
+    private modalService: NgbModal,
     private cdr: ChangeDetectorRef,
     private router: Router
   ) {}
@@ -37,7 +45,9 @@ export class DrawListComponent implements OnInit {
       let artists: Artist[] = await this.artistService.getArtists();
 
       let artist: Artist | undefined = new Artist();
-
+      if (this.draws) {
+        this.draws = [];
+      }
       draws.forEach((draw) => {
         artist = artists.find((artist) => artist.id === draw.artistId);
 
@@ -47,6 +57,7 @@ export class DrawListComponent implements OnInit {
             img: draw.img,
             title: draw.title,
             artist: artist.name,
+            desc: draw.desc,
           });
         }
 
@@ -70,8 +81,26 @@ export class DrawListComponent implements OnInit {
   }
 
   async deleteDraw(drawId: number): Promise<void> {
+    await this.drawService.deleteDraw(drawId);
+    await this.setDrawList();
+    this.cdr.markForCheck();
+  }
+
+  async openModal(draw: iDrawItem, content: TemplateRef<any>) {
     try {
-      await this.drawService.deleteDraw(drawId);
-    } catch (error) {}
+      this.draw = {
+        id: draw.id,
+        artistId: +draw.artist,
+        desc: draw.desc,
+        img: draw.img,
+        title: draw.title,
+      };
+
+      this.modalService.open(content).result.then(async (result) => {
+        await this.editDraw(this.draw);
+        await this.setDrawList();
+        this.cdr.markForCheck();
+      });
+    } catch {}
   }
 }

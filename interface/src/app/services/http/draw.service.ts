@@ -34,7 +34,7 @@ export class DrawService {
         artistId: draw.artistId,
         title: draw.title,
         desc: draw.desc,
-        img: await this.ImgToBase64(draw.img),
+        img: draw.img,
       })
       .toPromise();
   }
