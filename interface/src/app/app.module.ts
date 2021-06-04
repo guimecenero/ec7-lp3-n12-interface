@@ -12,6 +12,7 @@ import { DashboardComponent } from './views/pages/dashboard/dashboard.component'
 import { HomeComponent } from './views/pages/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ArtistListComponent } from './views/pages/artist/artist-list/artist-list.component';
+import { InspirationComponent } from './views/pages/inspiration/inspiration.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { ArtistListComponent } from './views/pages/artist/artist-list/artist-lis
     ArtistRegisterComponent,
     DashboardComponent,
     HomeComponent,
+    InspirationComponent,
   ],
   imports: [
     BrowserModule,

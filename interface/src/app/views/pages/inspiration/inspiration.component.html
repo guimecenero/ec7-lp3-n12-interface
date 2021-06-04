@@ -1,0 +1,11 @@
+<h1>Inspiração</h1>
+<p class="text-secondary">Veja alguns desenhos e imagens lindas para inspirar-se para seus desenhos e fotos, todas
+    retiradas da API pública <strong>Picsum</strong>.</p>
+
+<hr class="mb-5">
+
+<div class="d-flex flex-wrap justify-content-center">
+    <div *ngFor="let img of imgs">
+        <img src="https://picsum.photos/200?random={{img}}">
+    </div>
+</div>

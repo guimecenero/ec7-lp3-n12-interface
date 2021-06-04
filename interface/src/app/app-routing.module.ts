@@ -6,6 +6,7 @@ import { DashboardComponent } from './views/pages/dashboard/dashboard.component'
 import { DrawListComponent } from './views/pages/draw/draw-list/draw-list.component';
 import { DrawRegisterComponent } from './views/pages/draw/draw-register/draw-register.component';
 import { HomeComponent } from './views/pages/home/home.component';
+import { InspirationComponent } from './views/pages/inspiration/inspiration.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent
+  },
+  {
+    path: 'inspiration',
+    component: InspirationComponent
   },
   {
     path: 'draw',
